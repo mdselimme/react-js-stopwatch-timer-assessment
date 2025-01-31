@@ -1,8 +1,10 @@
+import StopWatch from "./assets/Pages/StopWatch/StopWatch";
+
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <div className="main-body">
+      <StopWatch></StopWatch>
+    </div>
   );
 }
 

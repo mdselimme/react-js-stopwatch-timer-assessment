@@ -9,3 +9,15 @@
   box-sizing: border-box;
   font-family: "Lato", serif;
 }
+
+body {
+  background: #a8eaf4;
+}
+
+.main-body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
