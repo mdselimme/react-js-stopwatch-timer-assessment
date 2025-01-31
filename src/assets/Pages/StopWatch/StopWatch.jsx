@@ -1,25 +1,57 @@
 import "./StopWatch.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoMdPause, IoMdPlay } from "react-icons/io";
 const StopWatch = () => {
   const [btnToggle, setBtnToggle] = useState(true);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [rootTimer, setRootTimer] = useState(0);
+  const interValIdRef = useRef(null);
+  const timeStartRef = useRef(0);
+
+  useEffect(() => {
+    if (isTimerRunning) {
+      interValIdRef.current = setInterval(() => {
+        setRootTimer(Date.now() - timeStartRef.current);
+      }, 10);
+      return () => {
+        clearInterval(interValIdRef.current);
+      };
+    }
+  }, [isTimerRunning]);
 
   // Start Timer Function
   const startTimer = () => {
     setBtnToggle(false);
-    console.log("start timer");
+    setIsTimerRunning(true);
+    timeStartRef.current = Date.now() - rootTimer;
   };
 
   // Stop Timer Function
   const stopTimer = () => {
     setBtnToggle(true);
-    console.log("stop timer");
+    setIsTimerRunning(false);
   };
 
   // Reset Timer Function
   const resetTimer = () => {
-    console.log("reset timer");
+    setBtnToggle(true);
+    setRootTimer(0);
+    setIsTimerRunning(false);
   };
+
+  const hours = String(Math.floor(rootTimer / (1000 * 60 * 60))).padStart(
+    2,
+    "0"
+  );
+  const minutes = String(Math.floor((rootTimer / (1000 * 60)) % 60)).padStart(
+    2,
+    "0"
+  );
+  const seconds = String(Math.floor((rootTimer / 1000) % 60)).padStart(2, "0");
+  const miliseconds = String(Math.floor((rootTimer % 1000) / 60)).padStart(
+    2,
+    "0"
+  );
 
   return (
     <div className="stopwatch-container">
@@ -28,7 +60,8 @@ const StopWatch = () => {
         <div className="timer-box">
           <div className="times-number">
             <h1>
-              00 <span>:</span> 00 <span>:</span> 00 <span>:</span> 00
+              {hours} <span>:</span> {minutes} <span>:</span> {seconds}{" "}
+              <span>:</span> {miliseconds}
             </h1>
           </div>
         </div>

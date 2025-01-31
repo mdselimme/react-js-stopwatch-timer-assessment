@@ -57,6 +57,7 @@
 /* pause and play button css start here  */
 
 .play-pause-btn button {
+  display: inline-block;
   position: absolute;
   bottom: -62px;
   left: 50%;
@@ -64,7 +65,7 @@
   height: 120px;
   line-height: 120px;
   background: #027dc3;
-  border-radius: 100px;
+  border-radius: 120px;
   text-align: center;
   transform: translateX(-50%);
   color: #ffffff;
